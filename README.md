@@ -1,6 +1,6 @@
-# Hierarchical User Intent Graph Network forMultimedia Recommendation
+# Hierarchical User Intent Graph Network for Multimedia Recommendation
 
-This is our Pytorch implementation for the paper: Hierarchical User Intent Graph Network forMultimedia Recommendation
+This is our Pytorch implementation for the paper: Hierarchical User Intent Graph Network for Multimedia Recommendation
 
 
 ## Environment Requirement
