@@ -15,11 +15,11 @@ The code has been tested running under Python 3.5.2. The required packages are a
 ## Example to Run the Codes
 The instruction of commands has been clearly stated in the codes.
 - Movielens dataset  
-`python main.py --data_path='Movielens' --l_r=0.0001 --weight_decay=0.0001 --batch_size=1024 --dim_x=64 --num_workers=30 --topK=10 --cluster_list 32 8 4` 
+`python main.py --data_path 'Movielens' --l_r 0.0001 --weight_decay 0.0001 --batch_size 1024 --dim_x 64 --num_workers 30 --topK 10 --cluster_list 32 8 4` 
 - Tiktok dataset  
-`python train.py --data_path='Tiktok' --l_r=0.0005 --weight_decay=0.1 --batch_size=1024 --dim_latent=64 --num_workers=30 --topK=10 --cluster_list 32 8 4`
+`python train.py --data_path 'Tiktok' --l_r 0.0005 --weight_decay 0.1 --batch_size 1024 --dim_latent 64 --num_workers 30 --topK 10 --cluster_list 32 8 4`
 - Kwai dataset  
-```python train.py --data_path='Kwai' --l_r=0.0005 --weight_decay=0.1 --batch_size=1024 --dim_latent=64 --num_workers=30 --topK=10 --cluster_list 32 8 4```
+```python train.py --data_path 'Kwai' --l_r 0.0005 --weight_decay 0.1 --batch_size 1024 --dim_latent 64 --num_workers 30 --topK 10 --cluster_list 32 8 4```
 
 
 
