@@ -69,7 +69,7 @@ We provide three processed datasets: Movielnes, Tiktok, and Kwai.
 |Kwai|298,492|86,483|7,010|2,048|-|-|
 
 -`train.npy`
-   Train file. Each line is a triplet of one user, one postive item, and one negtive item: (userID and micro-video ID)  
+   Train file. Each line is a pair of one user and one of her/his postive items: (userID and micro-video ID)  
 -`val_full.npy`
    Validation file. Each line is a user with her/his positive interactions with items: (userID and micro-video ID)  
 -`test_full.npy`
