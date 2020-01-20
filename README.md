@@ -15,26 +15,35 @@ The code has been tested running under Python 3.5.2. The required packages are a
 ## Example to Run the Codes
 The instruction of commands has been clearly stated in the codes.
 - Movielens dataset  
-`python train.py --model_name='MMGCN' --l_r=0.0001 --weight_decay=0.0001 --batch_size=1024 --dim_latent=64 --num_workers=30 --aggr_mode='mean' --num_layer=2 --concat=False`  
+`python main.py --data_path='Movielens' --l_r=0.0001 --weight_decay=0.0001 --batch_size=1024 --dim_x=64 --num_workers=30 --topK=10 --cluster_list 32 8 4` 
 - Tiktok dataset  
-`python train.py --model_name='Tiktok' --l_r=0.0005 --weight_decay=0.1 --batch_size=1024 --dim_latent=64 --num_workers=30 --aggr_mode='mean' --num_layer=2 --concat=False`
+`python train.py --data_path='Tiktok' --l_r=0.0005 --weight_decay=0.1 --batch_size=1024 --dim_latent=64 --num_workers=30 --topK=10 --cluster_list 32 8 4`
 - Kwai dataset  
-```python train.py --model_name='Kwai' --l_r=0.0005 --weight_decay=0.1 --batch_size=1024 --dim_latent=64 --num_workers=30 --aggr_mode='mean' --num_layer=2 --concat=False```
+```python train.py --data_path='Kwai' --l_r=0.0005 --weight_decay=0.1 --batch_size=1024 --dim_latent=64 --num_workers=30 --topK=10 --cluster_list 32 8 4```
 
 
 
 Some important arguments:  
 
+`has_ind`: It indicateds the
 
-<!-- - `model_name`: 
+`has_cro`:
+
+`has_v`, `has_a`, and `has_t`
+
+`--num_links`
+
+`--cluster_list`
+
+<!--- `model_name`: 
   It specifies the type of model. Here we provide three options: 
   1. `MMGCN` (by default) proposed in MMGCN: Multi-modal Graph Convolution Network for Personalized Recommendation of Micro-video, ACM MM2019. Usage: `--model_name='MMGCN'`
   2. `VBPR` proposed in [VBPR: Visual Bayesian Personalized Ranking from Implicit Feedback](https://arxiv.org/abs/1510.01784), AAAI2016. Usage: `--model_name 'VBPR'`  
   3. `ACF` proposed in [Attentive Collaborative Filtering: Multimedia Recommendation with Item- and Component-Level Attention
 ](https://dl.acm.org/citation.cfm?id=3080797), SIGIR2017. Usage: `--model_name 'ACF'`  
   4. `GraphSAGE` proposed in [Inductive Representation Learning on Large Graphs](https://arxiv.org/abs/1706.02216), NIPS2017. Usage: `--model_name 'GraphSAGE'`
-  5. `NGCF` proposed in [Neural Graph Collaborative Filtering](https://arxiv.org/abs/1905.08108), SIGIR2019. Usage: `--model_name 'NGCF'`  -->
-
+  5. `NGCF` proposed in [Neural Graph Collaborative Filtering](https://arxiv.org/abs/1905.08108), SIGIR2019. Usage: `--model_name 'NGCF'` 
+-->
 
 <!-- - `aggr_mode` 
   It specifics the type of aggregation layer. Here we provide three options:  
