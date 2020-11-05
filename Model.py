@@ -73,18 +73,18 @@ class Net(torch.nn.Module):
         self.weight = torch.tensor([[1.0],[-1.0]]).cuda()
         self.v_pooling = self.a_pooling = self.t_pooling = None
 
-        num_modal = 0
+        self.num_modal = 0
         if v_feat is not None:
             self.v_pooling = FeaturePooling(v_feat, item_adj, layers, self_loop, has_act, has_trans, has_weight)
-            num_modal += 1
+            self.num_modal += 1
         if a_feat is not None:
             self.a_pooling = FeaturePooling(a_feat, item_adj, layers, self_loop, has_act, has_trans, has_weight)
-            num_modal += 1
+            self.num_modal += 1
         if t_feat is not None:
             self.t_pooling = FeaturePooling(t_feat, item_adj, layers, self_loop, has_act, has_trans, has_weight)
-            num_modal += 1
+            self.num_modal += 1
         
-        self.feat_dim = num_modal*torch.tensor(layers).sum().item()
+        self.feat_dim = torch.tensor(layers).sum().item()
 
         self.id_embedding = Parameter(nn.init.xavier_normal_(torch.rand((num_user+num_item, dim_x))))
 
@@ -103,23 +103,24 @@ class Net(torch.nn.Module):
 
         if self.v_pooling is not None:
             self.v_rep, v_entropy_loss, v_indepence_loss = self.v_pooling()
-            self.rep = torch.cat([self.rep, self.v_rep], dim=1)
+            self.rep =  self.v_rep
             entropy_loss += v_entropy_loss
             v_indepence_loss += v_indepence_loss
         
         if self.a_pooling is not None:
             self.a_rep, a_entropy_loss, a_indepence_loss = self.a_pooling()
-            self.rep = torch.cat([self.rep, self.a_rep], dim=1)
+            self.rep = self.rep + self.a_rep
             entropy_loss += a_entropy_loss
             indepence_loss += a_indepence_loss
 
         if self.t_pooling is not None:
             self.t_rep, t_entropy_loss, t_indepence_loss = self.t_pooling()
-            self.rep = torch.cat([self.rep, self.t_rep], dim=1)
+            self.rep = self.rep + self.t_rep
             entropy_loss += t_entropy_loss
             indepence_loss += t_indepence_loss
 
         self.u_i_rep = torch.cat((self.user_preferences, self.rep), dim=0)
+        self.rep = self.rep / self.num_model
 
         if self.has_id:
             x = torch.cat((self.id_embedding, self.u_i_rep), dim=1)
@@ -203,48 +204,3 @@ class Net(torch.nn.Module):
             ndcg += ndcg_score/max_ndcg_score
 
         return precision/length, recall/length, ndcg/length
-
-    # def full_accuracy(self, val_data, topk=10):
-    #     user_tensor = self.result[:self.num_user]
-    #     item_tensor = self.result[self.num_user:]
-
-    #     score_matrix = torch.matmul(user_tensor, item_tensor.t())
-    #     score_matrix[self.pos_row, self.pos_col] = -1e8
-    #     precision = recall = ndcg = 0.0
-
-    #     _, index_of_rank_list = torch.topk(score_matrix, topk)
-    #     index_of_rank_list = index_of_rank_list.cpu()+self.num_user
-
-    #     length = len(val_data)
-
-    #     val_pbar = tqdm(total=length)
-    #     log = math.log
-
-    #     for data in val_data:
-    #         val_pbar.update(1)
-    #         user = data[0]
-    #         pos_items = set(data[1:])
-    #         num_pos = len(pos_items)
-    #         items_list = index_of_rank_list[user].tolist()
-    #         items = set(items_list)
-
-    #         num_hit = len(pos_items.intersection(items))
-
-    #         precision += float(num_hit / topk)
-    #         recall += float(num_hit / num_pos)
-    #         ndcg_score = 0.0
-    #         max_ndcg_score = 0.0
-
-    #         for i in range(min(num_hit, topk)):
-    #             max_ndcg_score += 1 / math.log2(i+2)
-    #         if max_ndcg_score == 0:
-    #             continue
-                
-    #         for i, temp_item in enumerate(items_list):
-    #             if temp_item in pos_items:
-    #                 ndcg_score += 1 / math.log2(i+2)
-
-    #         ndcg += ndcg_score/max_ndcg_score
-
-    #     val_pbar.close()
-    #     return precision/length, recall/length, ndcg/length
