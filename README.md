@@ -25,15 +25,15 @@ The instruction of commands has been clearly stated in the codes.
 
 Some important arguments:  
 
-`has_ind`: It indicateds the
+`has_ind`: It indicates the optional independence loss function.
 
-`has_cro`:
+`has_cro`: It indicates the optional cross_entropy loss function.
 
-`has_v`, `has_a`, and `has_t`
+`has_v`, `has_a`, and `has_t`: They are used to indicate which modalities are included in this work.
 
-`--num_links`
+`--num_links`: It indicates the number of co-occurrence. 
 
-`--cluster_list`
+`--cluster_list`: It describes the structure of hierarchical user intents.
 
 <!--- `model_name`: 
   It specifies the type of model. Here we provide three options: 
