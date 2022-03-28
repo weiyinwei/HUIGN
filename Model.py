@@ -105,7 +105,7 @@ class Net(torch.nn.Module):
             self.v_rep, v_entropy_loss, v_indepence_loss = self.v_pooling()
             self.rep =  self.v_rep
             entropy_loss += v_entropy_loss
-            v_indepence_loss += v_indepence_loss
+            indepence_loss += v_indepence_loss
         
         if self.a_pooling is not None:
             self.a_rep, a_entropy_loss, a_indepence_loss = self.a_pooling()
